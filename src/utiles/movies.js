@@ -1,7 +1,10 @@
 // Action
-import Expend4bles from "../images/action/Expend4bles.jpeg";
-import ShadowRecon from "../images/action/Shadow Recon.jpeg";
-import CyberHeist from "../images/action/Cyber Heist .jpeg";
+import Expend4bles from "../images/action/Expend4bles.jpg";
+import FullExpend4bles from "../images/action/fullExpend4bles.jpg";
+import Extraction2 from "../images/action/Extraction2.jpg";
+import FullExtraction2 from "../images/action/fullExtraction2.jpg";
+import CyberHeist from "../images/action/Cyber_heist.jpg";
+import FullCyberHeist from "../images/action/fullCyber_heist.jpg";
 
 // Upcomming
 import Aquaman from "../images/upcomming/aquaman.jpeg";
@@ -14,6 +17,7 @@ const actionMovies = [
     id: "a/1",
     name: "Expend4bles",
     srcImage: Expend4bles,
+    fullImage: FullExpend4bles,
     time: "1h 43m",
     type: "Action adventure thriller",
     description:
@@ -31,27 +35,29 @@ const actionMovies = [
   },
   {
     id: "a/2",
-    name: "Shadow Recon",
-    srcImage: ShadowRecon,
-    time: "2h 10m",
-    type: "Action adventure thriller",
+    name: "Extraction 2",
+    srcImage: Extraction2,
+    fullImage: FullExtraction2,
+    time: "2h 3m",
+    type: "Action/Thriller",
     description:
-      "An elite team of soldiers must navigate through dangerous terrain to stop a threat that could change the face of warfare forever.",
-    rate: 4.5,
-    director: "Jane Doe",
-    writers: "John Smith, Alice Johnson",
+      "Back from the brink of death, commando Tyler Rake embarks on a dangerous mission to save a ruthless gangster's imprisoned family.",
+    rate: 7,
+    director: "Sam Hargrave",
+    writers: "William Hoy, Álex Rodríguez",
     cast: [
       { name: "Chris Hemsworth" },
-      { name: "Vanessa Kirby" },
-      { name: "Idris Elba" },
-      { name: "Michelle Rodriguez" },
+      { name: "Adam Bessa" },
+      { name: "Tinatin Dalakishvili" },
+      { name: "Daniel Bernhardt" },
     ],
-    trailerLink: "https://www.fake-trailer-link.com/shadowrecon",
+    trailerLink: "https://www.youtube.com/watch?v=Y274jZs5s7s",
   },
   {
     id: "a/3",
     name: "Cyber Heist",
     srcImage: CyberHeist,
+    fullImage: FullCyberHeist,
     time: "1h 55m",
     type: "Action adventure thriller",
     description:
@@ -65,7 +71,7 @@ const actionMovies = [
       { name: "Scarlett Johansson" },
       { name: "Tom Hardy" },
     ],
-    trailerLink: "https://www.fake-trailer-link.com/cyberheist",
+    trailerLink: "https://www.youtube.com/watch?v=Z6Wf5QwjyIA",
   },
 ];
 const upcommingMovies = [
@@ -81,7 +87,7 @@ const upcommingMovies = [
     srcImage: Napoleon,
     name: "Napoleon",
     ReleaseDate: "November 22, 2023",
-    trailer: "https://www.youtube.com/watch?app=desktop&v=LIsfMO5Jd_w",
+    trailer: "https://www.youtube.com/watch?v=OAZWXUkrjPc",
   },
   {
     id: "up/3",
@@ -91,7 +97,7 @@ const upcommingMovies = [
     trailer: "https://www.youtube.com/watch?v=gfMRgap9jWk",
   },
   {
-    id: "up/3",
+    id: "up/4",
     srcImage: Joker,
     name: "Joker: Folie à Deux",
     ReleaseDate: "October 4, 2024",

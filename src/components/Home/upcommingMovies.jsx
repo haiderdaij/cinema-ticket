@@ -1,5 +1,6 @@
 import React from "react";
 import { upcommingMovies } from "../../utiles/movies";
+import IframeModel from "../widget/iframe";
 
 function UpcommingMovies() {
   return (
@@ -26,9 +27,9 @@ function UpcommingMovies() {
                     />
                   </div>
                   <div className="flex flex-col items-start justify-center p-4">
-                    <h1 className="mb-2 text-xl font-bold">{item.name}</h1>
+                    <h1 className="mb-2 font-bold lg:text-xl">{item.name}</h1>
                     <h2 className="mb-4 text-sm">{item.ReleaseDate}</h2>
-                    <button className="actionButton">Watch Trailer</button>
+                    <IframeModel link={item.trailer} />
                   </div>
                 </div>
               </div>

@@ -11,20 +11,20 @@ function Home() {
         <div className="flex h-full w-full flex-col gap-40">
           <Slider />
           <MovieSection
+            idSection={"Action"}
             title={"Action & Adventure Movies"}
             data={actionMovies}
-            cardColor={"bg-rubyA3"}
           />
           <MovieSection
+            idSection={"Horror"}
             title={"Horror Movies"}
             data={actionMovies}
-            cardColor={"bg-indigoA3"}
             direction={"r"}
           />
           <MovieSection
+            idSection={"Comedy"}
             title={"Comedy Movies"}
             data={actionMovies}
-            cardColor={"bg-grayA3"}
           />
         </div>
       </section>

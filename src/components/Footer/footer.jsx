@@ -11,19 +11,19 @@ function Footer() {
           </h1>
         </div>
         <div className="flex flex-col gap-6 lg:flex-row lg:justify-between">
-          <p className="text-grayA11 w-full text-center lg:w-[65%] lg:text-left">
+          <p className="w-full text-center text-grayA11 lg:w-[65%] lg:text-left">
             {FooterData.subtitle}
           </p>
-          <div className="border-grayA6 relative m-auto w-[70%] rounded-sm border lg:w-[30%]">
+          <div className="relative m-auto w-[70%] rounded-sm border border-grayA6 lg:w-[30%]">
             <input
               placeholder="you@gmail.com"
               name="email"
-              className="bg-grayA5 placeholder:text-grayA10 w-full rounded-sm  px-1 py-2 placeholder:pl-1"
+              className="w-full rounded-sm bg-grayA5 px-1  py-2 placeholder:pl-1 placeholder:text-grayA10"
             />
             <div className="absolute right-0 top-0 h-full w-[40%] lg:w-[30%]">
               <button
-                className="bg-red10 h-full 
-               w-full rounded-br-sm rounded-tr-sm text-sm font-bold text-white"
+                className="h-full w-full 
+               rounded-br-sm rounded-tr-sm bg-red10 text-sm font-bold text-white"
               >
                 Subscribe
               </button>
@@ -51,7 +51,7 @@ function Footer() {
             </div>
           </div>
           <hr className="border-grayA7" />
-          <p className="text-grayA10 my-6 w-full text-center text-sm">
+          <p className="my-6 w-full text-center text-sm text-grayA10">
             {FooterData.copyRight}
           </p>
         </div>
