@@ -1,9 +1,12 @@
 import { HashRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import Movie from "./pages/Movie";
-import Payment from "./pages/Payment";
+import Movies from "./pages/Movies";
 import Navbar from "./components/Navbar/navbar";
 import Footer from "./components/Footer/footer";
+import NoPageFound from "./pages/NoPageFound";
+import LocalMovie from "./components/Movies/localMovie";
+
+const ErrorPage = <Route path="*" element={<NoPageFound />} />;
 
 function App() {
   return (
@@ -12,8 +15,10 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/movie" element={<Movie />} />
-          <Route path="/payment" element={<Payment />} />
+          <Route path="movies" element={<Movies />}>
+            <Route path=":movieId" element={<LocalMovie />} />
+          </Route>
+          {ErrorPage}
         </Routes>
         <Footer />
       </HashRouter>

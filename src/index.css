@@ -4,13 +4,13 @@
 
 @layer components {
   .dialogOverlay {
-    @apply z-Overlay data-[state=open]:animate-overlayShow bg-blackA6 fixed inset-0;
+    @apply fixed inset-0 z-Overlay bg-blackA6 data-[state=open]:animate-overlayShow;
   }
   .dialogContent {
-    @apply z-Dialog data-[state=open]:animate-contentShow bg-blackA12
-        fixed left-[50%] top-[50%] h-[50vh] max-h-[85vh] w-[90vw] max-w-[800px]
-         translate-x-[-50%] translate-y-[-50%] rounded-md border border-gray-500
-          shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none;
+    @apply fixed left-[50%] top-[50%]
+        z-Dialog h-[50vh] max-h-[85vh] w-[90vw] max-w-[800px] translate-x-[-50%] translate-y-[-50%]
+         rounded-md border border-gray-500 bg-blackA12 shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px]
+          focus:outline-none data-[state=open]:animate-contentShow;
   }
   header {
     @apply sticky top-0 z-header h-16 
