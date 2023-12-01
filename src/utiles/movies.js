@@ -14,7 +14,7 @@ import Joker from "../images/upcomming/joker.jpeg";
 
 const actionMovies = [
   {
-    id: "a/1",
+    id: "a-1",
     name: "Expend4bles",
     srcImage: Expend4bles,
     fullImage: FullExpend4bles,
@@ -24,7 +24,11 @@ const actionMovies = [
       "Armed with every weapon they can get their hands on, the Expendables are the world's last line of defense and the team that gets called when all other options are off the table.",
     rate: 4.8,
     director: "Scott Waugh",
-    writers: "Kurt Wimmer, Tad Daggerhart, Max Adams",
+    writers: [
+      { name: "Kurt Wimmer" },
+      { name: "Tad Daggerhart" },
+      { name: "Max Adams" },
+    ],
     cast: [
       { name: "Jason Stratham" },
       { name: "50 Cent" },
@@ -34,7 +38,7 @@ const actionMovies = [
     trailerLink: "https://www.youtube.com/watch?v=DhlaBO-SwVE",
   },
   {
-    id: "a/2",
+    id: "a-2",
     name: "Extraction 2",
     srcImage: Extraction2,
     fullImage: FullExtraction2,
@@ -44,7 +48,7 @@ const actionMovies = [
       "Back from the brink of death, commando Tyler Rake embarks on a dangerous mission to save a ruthless gangster's imprisoned family.",
     rate: 7,
     director: "Sam Hargrave",
-    writers: "William Hoy, Álex Rodríguez",
+    writers: [{ name: "William Hoy" }, { name: "Álex Rodríguez" }],
     cast: [
       { name: "Chris Hemsworth" },
       { name: "Adam Bessa" },
@@ -54,7 +58,7 @@ const actionMovies = [
     trailerLink: "https://www.youtube.com/watch?v=Y274jZs5s7s",
   },
   {
-    id: "a/3",
+    id: "a-3",
     name: "Cyber Heist",
     srcImage: CyberHeist,
     fullImage: FullCyberHeist,
@@ -64,7 +68,7 @@ const actionMovies = [
       "A group of skilled hackers is recruited for a heist that involves breaking into a high-security virtual vault; what they didn't expect was to have to fight their way out.",
     rate: 4.7,
     director: "Michael Bay",
-    writers: "Alex Kurtzman, Roberto Orci",
+    writers: [{ name: "Alex Kurtzman" }, { name: "Roberto Orci" }],
     cast: [
       { name: "Charlize Theron" },
       { name: "Keanu Reeves" },

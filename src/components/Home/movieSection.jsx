@@ -1,5 +1,6 @@
 import React from "react";
 import IframeModel from "../widget/iframe";
+import { NavLink } from "react-router-dom";
 
 function MovieSection({ title, data, direction, cardColor, idSection }) {
   return (
@@ -31,9 +32,14 @@ function MovieSection({ title, data, direction, cardColor, idSection }) {
                 </div>
               </div>
               <div className="flex flex-col items-center justify-end gap-2 px-3 pb-4 lg:flex-row">
-                <button className="actionButton w-[50%] border border-grayA12 bg-transparent text-grayA12 hover:bg-amber-950">
+                <NavLink
+                  target="_blank"
+                  rel="noreferrer"
+                  to={`/movies/new/${item.id}`}
+                  className="actionButton w-[50%] border border-grayA12 bg-transparent text-grayA12 hover:bg-amber-950"
+                >
                   Buy Ticket
-                </button>
+                </NavLink>
                 <IframeModel
                   link={item.trailerLink}
                   buttonStyle={"bg-grayA12 w-[50%]"}

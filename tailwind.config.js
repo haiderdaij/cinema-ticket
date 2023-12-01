@@ -92,6 +92,7 @@ module.exports = {
       },
       margin: {
         mPage: "64px",
+        subSection: "2.5rem",
       },
       borderRadius: {
         sm: "4px",
