@@ -35,7 +35,7 @@ function MovieSection({ title, data, direction, cardColor, idSection }) {
                 <NavLink
                   target="_blank"
                   rel="noreferrer"
-                  to={`/movies/new/${item.id}`}
+                  to={`/movies/${item.id}`}
                   className="actionButton w-[50%] border border-grayA12 bg-transparent text-grayA12 hover:bg-amber-950"
                 >
                   Buy Ticket

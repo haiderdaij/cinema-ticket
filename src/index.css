@@ -32,7 +32,10 @@
     @apply transition-all duration-100 ease-linear;
   }
   .upcommingSection {
-    @apply my-40 border-t border-grayA7 bg-gradient-to-b from-[#111] to-[#000];
+    @apply customGradient my-40;
+  }
+  .customGradient {
+    @apply border-t border-grayA7 bg-gradient-to-b from-[#111] to-[#000];
   }
   .upcommingCard {
     @apply rounded-sm bg-gradient-to-br
@@ -42,7 +45,11 @@
     @apply text-4xl font-bold md:text-5xl lg:text-6xl;
   }
   .actionButton {
-    @apply rounded-sm bg-amber8  px-3 py-2 text-sm font-bold text-black transition-all duration-75 ease-linear hover:bg-amber4;
+    @apply rounded-sm bg-amber8 
+     px-3 py-2 text-center text-sm
+      font-bold text-black
+       transition-all duration-75
+        ease-linear hover:bg-amber4;
   }
 }
 

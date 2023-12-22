@@ -6,7 +6,7 @@ import YoutubeIcon from "../icons/logos/youtube";
 const FooterData = {
   title: "How can we help you. get in touch",
   subtitle:
-    "We're committed to ensuring that every interaction with our website is straightforward, enjoyable, and, above all, transparent.",
+    "Must be 18 years or older to enter the cinema and purchase tickets. Valid ID required for age verification. No admittance for individuals under 18.",
   copyRight: "Copyright © 2024 Cinema Tickets",
   socialMedia: [
     {

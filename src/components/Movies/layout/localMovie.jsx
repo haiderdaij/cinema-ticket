@@ -2,79 +2,123 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { actionMovies } from "../../../utiles/movies";
 import { IframeContainer } from "../../widget/iframe";
+import SelectRadix from "../../widget/select";
+import FoodDrinks from "./components/foodDrinks";
+import RadioButton from "../../widget/radio";
 
 function LocalMovie({ Error }) {
-  let params = useParams()?.newid;
+  let params = useParams()?.movie;
   const selectedMovie = actionMovies.find((movie) => movie.id === params);
   if (!selectedMovie) {
     return Error;
   }
 
   return (
-    <div className="mb-40 mt-subSection h-full w-full">
-      <div className="mb-5 flex items-start justify-between">
-        <div className="flex flex-col items-start justify-start gap-2 text-left">
-          <h1 className="text-3xl font-bold lg:text-5xl">
-            {selectedMovie.name}
-          </h1>
-          <div>
-            <h2 className="text-sm text-grayA11">{selectedMovie.type}</h2>
-            <h2 className="text-sm text-grayA11">{selectedMovie.time}</h2>
+    <div className="mb-40 h-full w-full">
+      <div className="m-auto mt-subSection h-full w-full max-w-screen-2xl px-6">
+        <div className="mb-5 flex items-start justify-between">
+          <div className="flex flex-col items-start justify-start gap-2 text-left">
+            <h1 className="text-3xl font-bold lg:text-5xl">
+              {selectedMovie.name}
+            </h1>
+            <div>
+              <h2 className="text-sm text-grayA11">{selectedMovie.type}</h2>
+              <h2 className="text-sm text-grayA11">{selectedMovie.time}</h2>
+            </div>
           </div>
-        </div>
-        <button
-          className="transitionTouch inline-flex cursor-pointer
+          <button
+            className="transitionTouch inline-flex cursor-pointer
          items-center gap-1 rounded-sm border border-grayA8 p-1.5
           text-sm lg:hover:bg-grayA4"
-        >
-          <h2>Add favourite</h2>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="h-6 w-6"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-            />
-          </svg>
-        </button>
-      </div>
-      <div
-        className="transitionTouch m-auto mb-20
+            <h2>Add favourite</h2>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="h-6 w-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
+              />
+            </svg>
+          </button>
+        </div>
+        <div
+          className="transitionTouch mb-section m-auto
        h-[60vh] max-h-[85vh] w-[90vw]
         max-w-[1000px] rounded-md border border-grayA6"
-      >
-        <IframeContainer link={selectedMovie.trailerLink} />
-      </div>
-      <div className="gridCardetails mb-5 bg-indigoA2 lg:hover:bg-indigoA2">
-        <h1 className="gridCardTitle">Description</h1>
-        <h2 className="gridCardSubtitle">{selectedMovie.description}</h2>
-      </div>
-      <div className="transitionTouch grid h-full w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <div className="gridCardetails">
-          <h1 className="gridCardTitle">Cast</h1>
-          <ul className="list-disc pl-4">
-            {selectedMovie.cast.map((item) => {
-              return <li className="gridCardSubtitle">{item.name}</li>;
-            })}
-          </ul>
+        >
+          <IframeContainer link={selectedMovie.trailerLink} />
         </div>
-        <div className="gridCardetails">
-          <h1 className="gridCardTitle">Writers</h1>
-          <ul className="list-disc pl-4">
-            {selectedMovie.writers.map((item) => {
-              return <li className="gridCardSubtitle">{item.name}</li>;
-            })}
-          </ul>
+        <div className="gridCardetails mb-5 bg-indigoA2 lg:hover:bg-indigoA2">
+          <h1 className="gridCardTitle">Description</h1>
+          <h2 className="gridCardSubtitle">{selectedMovie.description}</h2>
         </div>
-        <div className="gridCardetails">
-          <h1 className="gridCardTitle">Director</h1>
-          <h2 className="gridCardSubtitle">{selectedMovie.director}</h2>
+        <div className="transitionTouch grid h-full w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="gridCardetails">
+            <h1 className="gridCardTitle">Cast</h1>
+            <ul className="list-disc pl-4">
+              {selectedMovie.cast.map((item) => {
+                return (
+                  <li key={item.name} className="gridCardSubtitle">
+                    {item.name}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          <div className="gridCardetails">
+            <h1 className="gridCardTitle">Writers</h1>
+            <ul className="list-disc pl-4">
+              {selectedMovie.writers.map((item) => {
+                return (
+                  <li key={item.name} className="gridCardSubtitle">
+                    {item.name}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          <div className="gridCardetails">
+            <h1 className="gridCardTitle">Director</h1>
+            <h2 className="gridCardSubtitle">{selectedMovie.director}</h2>
+          </div>
+        </div>
+      </div>
+      <div className="customGradient mt-section">
+        <div
+          className="m-auto mt-subSection 
+         flex max-w-screen-2xl flex-col items-center justify-center px-6"
+        >
+          <div className="mb-subSection">
+            <h1 className="text-5xl font-bold">Let's buy a ticket!</h1>
+          </div>
+          <div className="flex w-full flex-col items-start justify-center gap-4 lg:flex-row lg:justify-between">
+            <div className="flex w-full flex-col gap-4 rounded-md border border-grayA8 p-4 lg:w-[50%]">
+              <div className="flex w-full flex-col gap-2">
+                <h1 className="text-lg font-bold text-grayA11">Date</h1>
+                <SelectRadix />
+              </div>
+              <div className="flex w-full flex-col gap-2">
+                <h1 className="text-lg font-bold text-grayA11">Seats</h1>
+                <RadioButton />
+              </div>
+            </div>
+            <FoodDrinks />
+          </div>
+          <div className="mt-subSection flex items-center justify-center">
+            <button
+              className="transitionTouch rounded-md border border-gray2 bg-amberA10
+              px-4 py-2 text-center font-bold text-black lg:hover:bg-grayA4 lg:hover:text-white"
+            >
+              Payment
+            </button>
+          </div>
         </div>
       </div>
     </div>

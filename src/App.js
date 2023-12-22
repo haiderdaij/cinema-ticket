@@ -4,7 +4,6 @@ import Navbar from "./components/Navbar/navbar";
 import Footer from "./components/Footer/footer";
 import NoPageFound from "./pages/NoPageFound";
 import LocalMovie from "./components/Movies/layout/localMovie";
-import ExclusiveMovie from "./components/Movies/layout/exclusiveMovie";
 import { Outlet } from "react-router-dom";
 const Error = <NoPageFound />;
 
@@ -18,17 +17,12 @@ function App() {
           <Route
             path="movies"
             element={
-              <section>
+              <section className="max-w-full px-0">
                 <Outlet />
               </section>
             }
           >
-            <Route path="new" element={<Outlet />}>
-              <Route path=":newid" element={<LocalMovie Error={Error} />} />
-            </Route>
-            <Route path="exclusive" element={<Outlet />}>
-              <Route path=":exclusiveid" element={<ExclusiveMovie />} />
-            </Route>
+            <Route path=":movie" element={<LocalMovie Error={Error} />} />
           </Route>
           <Route path="*" element={Error} />
         </Routes>

@@ -51,7 +51,7 @@ function Slider() {
                     <NavLink
                       target="_blank"
                       rel="noreferrer"
-                      to={`/movies/new/${item.id}`}
+                      to={`/movies/${item.id}`}
                       className="actionButton border border-amber7 bg-transparent px-4 text-sm text-white hover:bg-amber-950 lg:text-lg"
                     >
                       Buy Ticket

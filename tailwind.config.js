@@ -11,6 +11,8 @@ const {
   indigoDarkA,
   amberDarkA,
   blackA,
+  mauve,
+  violet,
 } = require("@radix-ui/colors");
 
 /** @type {import('tailwindcss').Config} */
@@ -19,6 +21,22 @@ module.exports = {
   theme: {
     extend: {
       keyframes: {
+        slideDownAndFade: {
+          from: { opacity: 0, transform: "translateY(-2px)" },
+          to: { opacity: 1, transform: "translateY(0)" },
+        },
+        slideLeftAndFade: {
+          from: { opacity: 0, transform: "translateX(2px)" },
+          to: { opacity: 1, transform: "translateX(0)" },
+        },
+        slideUpAndFade: {
+          from: { opacity: 0, transform: "translateY(2px)" },
+          to: { opacity: 1, transform: "translateY(0)" },
+        },
+        slideRightAndFade: {
+          from: { opacity: 0, transform: "translateX(-2px)" },
+          to: { opacity: 1, transform: "translateX(0)" },
+        },
         overlayShow: {
           from: { opacity: 0 },
           to: { opacity: 1 },
@@ -72,6 +90,13 @@ module.exports = {
         enterFromRight: "enterFromRight 250ms ease",
         exitToLeft: "exitToLeft 250ms ease",
         exitToRight: "exitToRight 250ms ease",
+        slideDownAndFade:
+          "slideDownAndFade 200ms cubic-bezier(0.16, 1, 0.3, 1)",
+        slideLeftAndFade:
+          "slideLeftAndFade 200ms cubic-bezier(0.16, 1, 0.3, 1)",
+        slideUpAndFade: "slideUpAndFade 200ms cubic-bezier(0.16, 1, 0.3, 1)",
+        slideRightAndFade:
+          "slideRightAndFade 200ms cubic-bezier(0.16, 1, 0.3, 1)",
       },
       colors: {
         ...gray,
@@ -84,6 +109,8 @@ module.exports = {
         ...amberDarkA,
         ...indigoDarkA,
         ...blackA,
+        ...mauve,
+        ...violet,
       },
       zIndex: {
         header: 100,
@@ -93,6 +120,7 @@ module.exports = {
       margin: {
         mPage: "64px",
         subSection: "2.5rem",
+        section: "5rem",
       },
       borderRadius: {
         sm: "4px",
