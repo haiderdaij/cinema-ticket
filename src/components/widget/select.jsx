@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Select from "@radix-ui/react-select";
 import {
   CheckIcon,
@@ -26,9 +26,9 @@ let dates = [
     items: ["15:00", "20:00"],
   },
 ];
-function SelectRadix() {
+function SelectRadix({ handleChangeDate }) {
   return (
-    <Select.Root>
+    <Select.Root onValueChange={handleChangeDate}>
       <Select.Trigger
         className="inline-flex h-10 w-full
          items-center 
@@ -59,7 +59,10 @@ function SelectRadix() {
                   </Select.Label>
                   {item.items.map((childItem) => {
                     return (
-                      <SelectItem value={childItem} key={childItem}>
+                      <SelectItem
+                        value={`${item.date}, ${childItem}`}
+                        key={childItem}
+                      >
                         {`${item.date}, ${childItem}`}
                       </SelectItem>
                     );
@@ -83,7 +86,7 @@ function SelectRadix() {
 const SelectItem = React.forwardRef(({ children, ...props }, forwardedRef) => {
   return (
     <Select.Item
-      className="data-[disabled]:text-mauve8 relative flex h-[25px] select-none items-center rounded-[3px] pl-[25px] pr-[35px] text-[13px] leading-none text-white data-[disabled]:pointer-events-none data-[highlighted]:bg-amberA10 data-[highlighted]:text-black data-[highlighted]:outline-none"
+      className="relative flex h-[25px] select-none items-center rounded-[3px] pl-[25px] pr-[35px] text-[13px] leading-none text-white data-[disabled]:pointer-events-none data-[highlighted]:bg-amberA10 data-[disabled]:text-mauve8 data-[highlighted]:text-black data-[highlighted]:outline-none"
       {...props}
       ref={forwardedRef}
     >

@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import ToolTibRadix from "./tooltip";
 
-function RadioButton() {
-  const [seats, setSeats] = useState([]);
-
+function RadioButton({ seats, setSeats }) {
   const isAcceptIdentifier = (identifier) => {
     return seats.some((se) => se.identifier === identifier);
   };
 
-  useEffect(() => {
-    console.log("seats", seats);
-  }, [seats]);
+  let price = "9.99$";
 
   return (
     <form
@@ -53,7 +49,7 @@ function RadioButton() {
                             {
                               id: newPrimaryIndex,
                               identifier: specialIndex,
-                              percentage: specialIndex,
+                              price: price,
                             },
                           ];
                         }
@@ -71,7 +67,7 @@ function RadioButton() {
                   content={
                     <div className="flex flex-col items-center justify-center gap-2">
                       <h1 className="text-black">{`Row ${newPrimaryIndex}, Seat ${newSecondaryIndex}`}</h1>
-                      <h1>9.99$</h1>
+                      <h1>{price}</h1>
                     </div>
                   }
                 />

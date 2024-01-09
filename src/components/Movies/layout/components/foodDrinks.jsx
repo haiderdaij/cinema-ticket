@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PlusCircledIcon, MinusCircledIcon } from "@radix-ui/react-icons";
 
 const foodDrinksItems = [
@@ -34,27 +34,43 @@ const foodDrinksItems = [
   },
 ];
 
-function FoodDrinks() {
+function FoodDrinks({ setFoodDrinksPrice }) {
   const [itemCounts, setItemCounts] = useState({});
 
   function plusCount(itemId) {
     setItemCounts((prevCounts) => ({
       ...prevCounts,
-      [itemId]: (prevCounts[itemId] || 1) + 1,
+      [itemId]: (prevCounts[itemId] || 0) + 1,
     }));
   }
 
   function minusCount(itemId) {
     setItemCounts((prevCounts) => {
-      const newCount = (prevCounts[itemId] || 1) - 1;
-      return newCount >= 1 ? { ...prevCounts, [itemId]: newCount } : prevCounts;
+      const newCount = (prevCounts[itemId] || 0) - 1;
+      return newCount >= 0 ? { ...prevCounts, [itemId]: newCount } : prevCounts;
     });
   }
 
   function calculatePrice(price, count) {
     let newValue = parseFloat(price.replace("$", ""), 10) * count;
-    return `${newValue}$`;
+    return newValue;
   }
+
+  useEffect(() => {
+    let totalPrice = 0;
+    for (const itemId in itemCounts) {
+      if (itemCounts.hasOwnProperty(itemId)) {
+        const count = itemCounts[itemId];
+        const item = foodDrinksItems.find(
+          (item) => item.id === parseInt(itemId, 10),
+        );
+        if (item) {
+          totalPrice += calculatePrice(item.price, count);
+        }
+      }
+    }
+    setFoodDrinksPrice(totalPrice);
+  }, [itemCounts]);
 
   return (
     <div
@@ -68,16 +84,18 @@ function FoodDrinks() {
       <div className="flex h-full w-full flex-col gap-4">
         {foodDrinksItems.map((item) => {
           const itemId = item.id;
-          const count = itemCounts[itemId] || 1;
+          const count = itemCounts[itemId] || 0;
           const price = item.price;
           return (
             <div key={item.id} className="grid grid-cols-3 gap-4">
               <h1 className="font-bold">{item.label}</h1>
-              <h2 className="text-amberA10">{calculatePrice(price, count)}</h2>
+              <h2 className="text-amberA10">
+                {count === 0 ? price : `${calculatePrice(price, count)}$`}
+              </h2>
               <div className="flex flex-row items-center justify-center">
                 <MinusCircledIcon
                   className={`h-4 w-4 cursor-pointer ${
-                    count === 1 && "text-grayA10"
+                    count === 0 && "text-grayA10"
                   }`}
                   onClick={() => {
                     minusCount(itemId);

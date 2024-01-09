@@ -1,10 +1,7 @@
 // Action
 import Expend4bles from "../images/action/Expend4bles.jpg";
-import FullExpend4bles from "../images/action/fullExpend4bles.jpg";
 import Extraction2 from "../images/action/Extraction2.jpg";
-import FullExtraction2 from "../images/action/fullExtraction2.jpg";
 import CyberHeist from "../images/action/Cyber_heist.jpg";
-import FullCyberHeist from "../images/action/fullCyber_heist.jpg";
 
 // Upcomming
 import Aquaman from "../images/upcomming/aquaman.jpeg";
@@ -17,7 +14,6 @@ const actionMovies = [
     id: "a-1",
     name: "Expend4bles",
     srcImage: Expend4bles,
-    fullImage: FullExpend4bles,
     time: "1h 43m",
     type: "Action adventure thriller",
     description:
@@ -41,7 +37,6 @@ const actionMovies = [
     id: "a-2",
     name: "Extraction 2",
     srcImage: Extraction2,
-    fullImage: FullExtraction2,
     time: "2h 3m",
     type: "Action/Thriller",
     description:
@@ -61,7 +56,6 @@ const actionMovies = [
     id: "a-3",
     name: "Cyber Heist",
     srcImage: CyberHeist,
-    fullImage: FullCyberHeist,
     time: "1h 55m",
     type: "Action adventure thriller",
     description:
