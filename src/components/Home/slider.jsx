@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/free-mode";
-import { actionMovies } from "../../utiles/movies";
+import { combinedMovies } from "../../utiles/movies";
 import IframeModel from "../widget/iframe";
 import { NavLink } from "react-router-dom";
 
@@ -23,7 +23,7 @@ function Slider() {
         modules={[Navigation, Pagination]}
         className="h-full w-full"
       >
-        {actionMovies.map((item) => {
+        {combinedMovies.map((item) => {
           return (
             <SwiperSlide key={item.id}>
               <div className="SliderContent">

@@ -3,7 +3,7 @@ import { BellIcon, FilmIcon } from "@heroicons/react/24/solid";
 import { NavLink } from "react-router-dom";
 import NavMenuItems from "./navMenuItems";
 
-function Navbar() {
+function Navbar({ favourite }) {
   return (
     <header>
       <section className="flex items-center">
@@ -16,7 +16,7 @@ function Navbar() {
             <h1 className="ml-1 font-serif font-bold">1897</h1>
           </NavLink>
 
-          <NavMenuItems />
+          <NavMenuItems favourite={favourite} />
 
           <div className="relative flex items-center justify-end">
             <div

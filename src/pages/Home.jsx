@@ -2,7 +2,7 @@ import React from "react";
 import Slider from "../components/Home/slider";
 import MovieSection from "../components/Home/movieSection";
 import UpcommingMovies from "../components/Home/upcommingMovies";
-import { actionMovies } from "../utiles/movies";
+import { actionMovies, comedyMovies, horrorMovies } from "../utiles/movies";
 
 function Home() {
   return (
@@ -18,13 +18,13 @@ function Home() {
           <MovieSection
             idSection={"Horror"}
             title={"Horror Movies"}
-            data={actionMovies}
+            data={horrorMovies}
             direction={"r"}
           />
           <MovieSection
             idSection={"Comedy"}
             title={"Comedy Movies"}
-            data={actionMovies}
+            data={comedyMovies}
           />
         </div>
       </section>

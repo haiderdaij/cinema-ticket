@@ -5,13 +5,16 @@ import Footer from "./components/Footer/footer";
 import NoPageFound from "./pages/NoPageFound";
 import LocalMovie from "./components/Movies/layout/localMovie";
 import { Outlet } from "react-router-dom";
+import useLocalStorage from "./hooks/useLocalStorage";
 const Error = <NoPageFound />;
 
 function App() {
+  const [favourite, setFavourite] = useLocalStorage("favourite", []);
+
   return (
     <>
       <HashRouter>
-        <Navbar />
+        <Navbar favourite={favourite} />
         <Routes>
           <Route index element={<Home />} />
           <Route
@@ -22,7 +25,16 @@ function App() {
               </section>
             }
           >
-            <Route path=":movie" element={<LocalMovie Error={Error} />} />
+            <Route
+              path=":movie"
+              element={
+                <LocalMovie
+                  Error={Error}
+                  favourite={favourite}
+                  setFavourite={setFavourite}
+                />
+              }
+            />
           </Route>
           <Route path="*" element={Error} />
         </Routes>

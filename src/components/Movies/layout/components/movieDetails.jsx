@@ -1,7 +1,9 @@
 import React from "react";
 import { IframeContainer } from "../../../widget/iframe";
+import { StarIcon, StarFilledIcon } from "@radix-ui/react-icons";
+import { props } from "../../../../utiles/property";
 
-function MovieDetails({ selectedMovie }) {
+function MovieDetails({ selectedMovie, favourite, setFavourite }) {
   return (
     <div className="m-auto mt-subSection h-full w-full max-w-screen-2xl px-6">
       <div className="mb-5 flex items-start justify-between">
@@ -15,25 +17,41 @@ function MovieDetails({ selectedMovie }) {
           </div>
         </div>
         <button
+          onClick={() => {
+            let updateFavourite;
+
+            if (props.isAcceptIdentifier(favourite, selectedMovie.id)) {
+              updateFavourite = favourite.filter(
+                (favourite) => favourite.identifier !== selectedMovie.id,
+              );
+            } else {
+              updateFavourite = [
+                ...favourite,
+                {
+                  identifier: selectedMovie.id,
+                  name: selectedMovie.name,
+                  type: selectedMovie.type,
+                  image: selectedMovie.srcImage,
+                },
+              ];
+            }
+            setFavourite(updateFavourite);
+          }}
           className="transitionTouch inline-flex cursor-pointer
          items-center gap-1 rounded-sm border border-grayA8 p-1.5
           text-sm lg:hover:bg-grayA4"
         >
-          <h2>Add favourite</h2>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="h-6 w-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-            />
-          </svg>
+          {props.isAcceptIdentifier(favourite, selectedMovie.id) ? (
+            <>
+              <h2>remove</h2>
+              <StarFilledIcon className="h-5 w-5 text-amber10" />
+            </>
+          ) : (
+            <>
+              <h2>Add</h2>
+              <StarIcon className="h-5 w-5" />
+            </>
+          )}
         </button>
       </div>
       <div
