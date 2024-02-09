@@ -4,7 +4,12 @@ import ToolTibRadix from "./tooltip";
 import { CircleBackslashIcon } from "@radix-ui/react-icons";
 import { props } from "../../utiles/property";
 
-function RadioButton({ seats, setSeats, alreadBuyWithParams }) {
+function RadioButton({
+  seats,
+  setSeats,
+  alreadBuyWithParams,
+  selectedDateValue,
+}) {
   return (
     <form
       className="flex h-full w-full flex-col
@@ -26,6 +31,7 @@ function RadioButton({ seats, setSeats, alreadBuyWithParams }) {
           setSeats={setSeats}
           key={`group-1-row-${primaryIndex}`}
           alreadBuyWithParams={alreadBuyWithParams}
+          selectedDateValue={selectedDateValue}
         />
       ))}
 
@@ -38,14 +44,21 @@ function RadioButton({ seats, setSeats, alreadBuyWithParams }) {
           setSeats={setSeats}
           key={`group-2-row-${primaryIndex}`}
           alreadBuyWithParams={alreadBuyWithParams}
+          selectedDateValue={selectedDateValue}
         />
       ))}
     </form>
   );
 }
 
-function RadioGroupRow({ primaryIndex, seats, setSeats, alreadBuyWithParams }) {
-  let price = "9.99$";
+function RadioGroupRow({
+  primaryIndex,
+  seats,
+  setSeats,
+  alreadBuyWithParams,
+  selectedDateValue,
+}) {
+  let price = "10.5$";
   let newPrimaryIndex = primaryIndex + 1;
 
   const combinedSeats = alreadBuyWithParams.reduce((acc, obj) => {
@@ -61,7 +74,8 @@ function RadioGroupRow({ primaryIndex, seats, setSeats, alreadBuyWithParams }) {
         let newSecondaryIndex = secondaryIndex + 1;
         let specialIndex = `${newSecondaryIndex}:${newPrimaryIndex}`;
         let isDisabled = combinedSeats.some(
-          (seat) => seat.identifier === specialIndex,
+          (seat) =>
+            seat.date === selectedDateValue && seat.identifier === specialIndex,
         );
         return (
           <ToolTibRadix
@@ -90,6 +104,7 @@ function RadioGroupRow({ primaryIndex, seats, setSeats, alreadBuyWithParams }) {
                         id: newPrimaryIndex,
                         identifier: specialIndex,
                         price: price,
+                        date: selectedDateValue,
                       },
                     ];
                   }

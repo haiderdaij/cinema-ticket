@@ -1,21 +1,14 @@
 import React from "react";
-import { BellIcon, FilmIcon } from "@heroicons/react/24/solid";
-import { NavLink } from "react-router-dom";
+import { BellIcon } from "@heroicons/react/24/solid";
 import NavMenuItems from "./navMenuItems";
+import Logo from "../../icons/webLogo/logo";
 
 function Navbar({ favourite }) {
   return (
     <header>
       <section className="flex items-center">
         <div className="flex h-full w-full items-center justify-between">
-          <NavLink
-            to={"/"}
-            className="inline-flex h-full cursor-pointer items-center rounded-sm text-amber10"
-          >
-            <FilmIcon className="h-8 w-8" />
-            <h1 className="ml-1 font-serif font-bold">1897</h1>
-          </NavLink>
-
+          <Logo />
           <NavMenuItems favourite={favourite} />
 
           <div className="relative flex items-center justify-end">

@@ -8,6 +8,8 @@ import MovieDetails from "./components/movieDetails";
 import useLocalStorage from "../../../hooks/useLocalStorage";
 import { props } from "../../../utiles/property";
 import { TrashIcon } from "@radix-ui/react-icons";
+import DialogRadix from "../../widget/dialog";
+import * as LottiePlayer from "@lottiefiles/lottie-player";
 
 const InputField = forwardRef(({ className, ...props }, forwardedRef) => (
   <input
@@ -44,6 +46,7 @@ function LocalMovie({ Error, setFavourite, favourite }) {
     zipCode.length === 5;
 
   let alreadBuyWithParams = alreadyBuy.filter((m) => m.params === params);
+
   const onSubmitBuyTicket = useCallback(() => {
     let updateBuyTicket = [
       ...alreadyBuy,
@@ -56,9 +59,11 @@ function LocalMovie({ Error, setFavourite, favourite }) {
       },
     ];
     setAlreadyBuy(updateBuyTicket);
-    if (typeof window !== "undefined") {
-      window.location.reload();
-    }
+    setTimeout(() => {
+      if (typeof window !== "undefined") {
+        window.location.reload();
+      }
+    }, 4000);
   }, [buyCondition]);
 
   const onSubmitDeleteTicket = useCallback((id) => {
@@ -145,6 +150,7 @@ function LocalMovie({ Error, setFavourite, favourite }) {
                     seats={seats}
                     setSeats={setSeats}
                     alreadBuyWithParams={alreadBuyWithParams}
+                    selectedDateValue={selectedDateValue}
                   />
                 </div>
               </div>
@@ -267,21 +273,47 @@ function LocalMovie({ Error, setFavourite, favourite }) {
                   </div>
                 </div>
               </div>
-              <button
-                onClick={() => {
-                  onSubmitBuyTicket();
-                }}
-                disabled={!buyCondition}
-                className={`transitionTouch mt-4 w-full rounded-md border
+              <DialogRadix
+                trigger={
+                  <button
+                    onClick={() => {
+                      onSubmitBuyTicket();
+                    }}
+                    disabled={!buyCondition}
+                    className={`transitionTouch mt-4 w-full rounded-md border
                  border-gray2 bg-amberA10 px-4 py-2 text-center
                   font-bold text-black ${
                     !buyCondition
                       ? "cursor-not-allowed border-none bg-amberA10/50"
                       : "lg:hover:bg-grayA4 lg:hover:text-white"
                   }`}
-              >
-                Buy
-              </button>
+                  >
+                    Buy
+                  </button>
+                }
+                content={
+                  <div className="flex h-full w-full items-center justify-center">
+                    <div className="flex h-full w-full flex-col items-center justify-center gap-2">
+                      <h1 className="text-4xl font-bold text-grayA11">
+                        Thank you for submitting..{" "}
+                      </h1>
+                      <lottie-player
+                        autoplay
+                        mode="normal"
+                        background="transparent"
+                        src="https://lottie.host/25eb6369-7856-438a-bb89-c8acfda5748d/2ufaEMA15S.json"
+                        style={{
+                          width: "400px",
+                          height: "400px",
+                        }}
+                      ></lottie-player>
+                    </div>
+                  </div>
+                }
+                styleContent={
+                  "w-full max-w-full h-full max-h-full border-none rounded-none bg-black"
+                }
+              />
             </div>
           )}
         </div>
