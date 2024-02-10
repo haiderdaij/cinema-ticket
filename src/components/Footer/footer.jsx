@@ -1,5 +1,6 @@
 import React from "react";
 import { FooterData } from "../../utiles/footer";
+import Logo from "../../icons/webLogo/logo";
 
 function Footer() {
   return (
@@ -32,8 +33,9 @@ function Footer() {
         </div>
         <div className="flex flex-col">
           <div className="my-6 flex flex-row justify-between">
-            <div className="">
-              <h1 className="font-serif font-bold">Since 1897</h1>
+            <div className="inline-flex items-center gap-2">
+              <Logo />
+              <h1 className="font-serif text-lg font-bold">Since 1897</h1>
             </div>
             <div className="flex flex-row items-center justify-between space-x-4">
               {FooterData.socialMedia.map((item) => {

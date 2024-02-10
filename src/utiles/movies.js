@@ -219,7 +219,7 @@ const upcommingMovies = [
     srcImage: Joker,
     name: "Joker: Folie à Deux",
     ReleaseDate: "October 4, 2024",
-    trailer: "https://www.youtube.com/watch?v=FWNvrryaG9M",
+    trailer: "https://www.youtube.com/watch?v=JNYIM0wl3wA",
   },
 ];
 

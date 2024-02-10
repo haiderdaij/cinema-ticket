@@ -10,11 +10,14 @@ function RadioButton({
   alreadBuyWithParams,
   selectedDateValue,
 }) {
+  let notValidAction = selectedDateValue === null;
   return (
     <form
-      className="flex h-full w-full flex-col
-     items-center justify-center gap-4
-      overflow-hidden rounded-md bg-grayA4 p-4"
+      className={`${
+        notValidAction && "pointer-events-none cursor-not-allowed opacity-50"
+      } transitionTouch flex h-full
+     w-full flex-col items-center
+      justify-center gap-4 overflow-hidden rounded-md bg-grayA4 p-4`}
     >
       <div
         className="mb-1 flex w-full flex-col items-center
