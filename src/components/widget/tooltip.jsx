@@ -14,7 +14,7 @@ function ToolTibRadix({ trigger, content }) {
         <TooltipPrimitive.Trigger
           asChild
           aria-label="Open tooltip"
-          onClick={() => setOpen(true)}
+          onClick={() => setOpen(!open)}
           onFocus={() => setOpen(true)}
           onMouseEnter={() => setOpen(true)}
           onMouseLeave={() => setOpen(false)}
