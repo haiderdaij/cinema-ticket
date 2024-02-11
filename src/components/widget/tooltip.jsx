@@ -2,23 +2,21 @@ import React, { useState } from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 
 function ToolTibRadix({ trigger, content }) {
-  const [open, setOpen] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  const toggleTooltip = () => setVisible(!visible);
 
   return (
     <TooltipPrimitive.Provider>
       <TooltipPrimitive.Root
         delayDuration={0}
-        open={open}
-        onOpenChange={setOpen}
+        open={visible}
+        onOpenChange={setVisible}
       >
         <TooltipPrimitive.Trigger
           asChild
           aria-label="Open tooltip"
-          onClick={() => setOpen(true)}
-          // onFocus={() => setOpen(true)}
-          // onMouseEnter={() => setOpen(true)}
-          // onMouseLeave={() => setOpen(false)}
-          // onBlur={() => setOpen(false)}
+          onClick={toggleTooltip}
         >
           {trigger}
         </TooltipPrimitive.Trigger>
