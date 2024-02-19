@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BellIcon } from "@heroicons/react/24/solid";
 import NavMenuItems from "./navMenuItems";
 import Logo from "../../icons/webLogo/logo";
 import { StarFilledIcon } from "@radix-ui/react-icons";
+import socket from "./socketServer";
+import DropMenuRadix from "../widget/dropMenu";
 
 function Navbar({ favourite }) {
+  const [movieNotices, setMovieNotices] = useState([]);
+
+  useEffect(() => {
+    const handleNewMovie = (receivedMovie) => {
+      setMovieNotices((prevMovieNotices) => [
+        ...prevMovieNotices,
+        receivedMovie,
+      ]);
+    };
+    socket.on("movie", handleNewMovie);
+    return () => {
+      socket.off("movie", handleNewMovie);
+    };
+  }, []);
+  console.log(movieNotices);
   return (
     <header>
       <section className="flex items-center">
@@ -19,18 +36,25 @@ function Navbar({ favourite }) {
             >
               <StarFilledIcon className="h-6 w-6 cursor-pointer p-0.5" />
             </div>
-            <div
-              className="transitionTouch
+            <DropMenuRadix
+              trigger={
+                <div
+                  className="transitionTouch
              cursor-pointer rounded-full border border-gray11 hover:bg-grayA7"
-            >
-              <BellIcon className="h-6 w-6 p-0.5" />
-              <div
-                className="absolute bottom-4 right-4 h-5 w-5 rounded-full 
+                >
+                  <BellIcon className="h-6 w-6 p-0.5" />
+                  {movieNotices.length > 0 && (
+                    <div
+                      className="absolute bottom-4 right-4 h-5 w-5 rounded-full 
               bg-red10 text-center text-sm "
-              >
-                2
-              </div>
-            </div>
+                    >
+                      {movieNotices.length}
+                    </div>
+                  )}
+                </div>
+              }
+              contentItems={movieNotices}
+            />
           </div>
         </div>
       </section>
