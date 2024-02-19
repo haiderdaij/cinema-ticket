@@ -5,6 +5,8 @@ import Logo from "../../icons/webLogo/logo";
 import { StarFilledIcon } from "@radix-ui/react-icons";
 import socket from "./socketServer";
 import DropMenuRadix from "../widget/dropMenu";
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import { NavLink } from "react-router-dom";
 
 function Navbar({ favourite }) {
   const [movieNotices, setMovieNotices] = useState([]);
@@ -21,7 +23,7 @@ function Navbar({ favourite }) {
       socket.off("movie", handleNewMovie);
     };
   }, []);
-  console.log(movieNotices);
+  console.log(favourite);
   return (
     <header>
       <section className="flex items-center">
@@ -30,12 +32,53 @@ function Navbar({ favourite }) {
           <NavMenuItems favourite={favourite} />
 
           <div className="relative flex items-center justify-end">
-            <div
-              className="transitionTouch mr-4 rounded-full border
+            <DropMenuRadix
+              trigger={
+                <div
+                  className="transitionTouch mr-4 rounded-full border
              border-gray11 hover:bg-grayA7 md:hidden"
-            >
-              <StarFilledIcon className="h-6 w-6 cursor-pointer p-0.5" />
-            </div>
+                >
+                  <StarFilledIcon className="h-6 w-6 cursor-pointer p-0.5" />
+                </div>
+              }
+              childer={
+                favourite.length > 0 ? (
+                  favourite.map((item) => {
+                    return (
+                      <DropdownMenu.Item
+                        key={item.identifier}
+                        className="group relative select-none items-center
+           rounded-[3px] p-2 text-sm leading-none text-red11 
+           outline-none data-[disabled]:pointer-events-none
+            data-[highlighted]:bg-red9 data-[disabled]:text-mauve11 data-[highlighted]:text-red1"
+                      >
+                        <NavLink
+                          to={`/movies/${item.identifier}`}
+                          className="inline-flex items-center gap-1"
+                        >
+                          <img
+                            src={item.image}
+                            className="h-8 w-8 object-contain"
+                            alt={item.name}
+                          />
+                          <div className="flex flex-col gap-1">
+                            <h1>{item.name}</h1>
+                            <h1 className="text-[13px]">{item.type}</h1>
+                          </div>
+                        </NavLink>
+                      </DropdownMenu.Item>
+                    );
+                  })
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center p-[5px] text-red11">
+                    <div className="px-4 py-2 text-sm">
+                      There is no Movie yet!
+                    </div>
+                  </div>
+                )
+              }
+            />
+
             <DropMenuRadix
               trigger={
                 <div
@@ -53,7 +96,40 @@ function Navbar({ favourite }) {
                   )}
                 </div>
               }
-              contentItems={movieNotices}
+              childer={
+                movieNotices.length > 0 ? (
+                  movieNotices.map((item) => {
+                    return (
+                      <DropdownMenu.Item
+                        key={item.id}
+                        className="group relative select-none items-center
+           rounded-[3px] p-2 text-sm leading-none text-red11 
+           outline-none data-[disabled]:pointer-events-none
+            data-[highlighted]:bg-red9 data-[disabled]:text-mauve11 data-[highlighted]:text-red1"
+                      >
+                        <div className="inline-flex items-center gap-1">
+                          <img
+                            src={require(
+                              `../../images/upcomming/${item.imageSrc}.jpeg`,
+                            )}
+                            className="h-8 w-8 object-contain"
+                            alt="movie"
+                          />
+                          <div className="flex">
+                            <h1>{item.title}</h1>
+                          </div>
+                        </div>
+                      </DropdownMenu.Item>
+                    );
+                  })
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center p-[5px] text-red11">
+                    <div className="px-4 py-2 text-sm">
+                      There is no Movie yet!
+                    </div>
+                  </div>
+                )
+              }
             />
           </div>
         </div>
