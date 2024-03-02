@@ -30,6 +30,7 @@ function LocalMovie({ Error, setFavourite, favourite }) {
   const [foodDrinksPrice, setFoodDrinksPrice] = useState(0);
   const [cardNumber, setCardNumber] = useState("");
   const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
   const [exp, setExp] = useState("");
   const [cvv, setCvv] = useState("");
   const [zipCode, setZipCode] = useState("");
@@ -38,15 +39,18 @@ function LocalMovie({ Error, setFavourite, favourite }) {
   const handleChangeDate = (value) => {
     setSelectedDateValue(value);
   };
+  let trueInputEmail = email.slice(-10) === "@gmail.com";
+
   let buyCondition =
     cardNumber.length === 12 &&
     fullName.length >= 3 &&
+    trueInputEmail &&
     exp.length === 5 &&
     cvv.length === 3 &&
     zipCode.length === 5;
 
   let alreadBuyWithParams = alreadyBuy.filter((m) => m.params === params);
-
+  console.log("alreadyBuy", alreadyBuy);
   const onSubmitBuyTicket = useCallback(() => {
     let updateBuyTicket = [
       ...alreadyBuy,
@@ -217,11 +221,32 @@ function LocalMovie({ Error, setFavourite, favourite }) {
                 <div className="flex flex-col gap-1">
                   <h2 className="text-gray5">FULL NAME</h2>
                   <InputField
-                    placeholder="HASSAN ALI"
+                    placeholder="huseein ali"
                     type="text"
                     value={fullName}
                     onChange={(e) => {
                       setFullName(e.target.value);
+                    }}
+                  />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-gray5">EMAIL</h2>
+                    {!trueInputEmail && email.length > 0 && (
+                      <h2 className="font-semibold text-red9">
+                        Try to write your email correctly!
+                      </h2>
+                    )}
+                    {trueInputEmail && (
+                      <h2 className="font-semibold text-amberA10">Correct!</h2>
+                    )}
+                  </div>
+                  <InputField
+                    placeholder="example@gmail.com"
+                    type="email"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
                     }}
                   />
                 </div>

@@ -23,7 +23,6 @@ function Navbar({ favourite }) {
       socket.off("movie", handleNewMovie);
     };
   }, []);
-  console.log(favourite);
   return (
     <header>
       <section className="flex items-center">

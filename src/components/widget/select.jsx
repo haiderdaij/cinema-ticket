@@ -62,6 +62,9 @@ function SelectRadix({ handleChangeDate }) {
                       <SelectItem
                         value={`${item.date}, ${childItem}`}
                         key={childItem}
+                        onClick={() => {
+                          console.log("Hi");
+                        }}
                       >
                         {`${item.date}, ${childItem}`}
                       </SelectItem>
