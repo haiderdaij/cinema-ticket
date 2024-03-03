@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback, useState } from "react";
+import React, { forwardRef, useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { combinedMovies } from "../../../utiles/movies";
 import SelectRadix from "../../widget/select";
@@ -35,6 +35,8 @@ function LocalMovie({ Error, setFavourite, favourite }) {
   const [cvv, setCvv] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [alreadyBuy, setAlreadyBuy] = useLocalStorage("alreadyBuy", []);
+  const [takeAction, setTakeAction] = useState(false);
+  const [emailIsSend, setEmailIsSend] = useState(false);
 
   const handleChangeDate = (value) => {
     setSelectedDateValue(value);
@@ -50,32 +52,82 @@ function LocalMovie({ Error, setFavourite, favourite }) {
     zipCode.length === 5;
 
   let alreadBuyWithParams = alreadyBuy.filter((m) => m.params === params);
-  console.log("alreadyBuy", alreadyBuy);
-  const onSubmitBuyTicket = useCallback(() => {
-    let updateBuyTicket = [
-      ...alreadyBuy,
-      {
-        id: props.generateId(),
-        params: params,
-        date: selectedDateValue,
-        admission: seats?.length,
-        seats: seats,
-      },
-    ];
-    setAlreadyBuy(updateBuyTicket);
+
+  const timeToReload = () => {
     setTimeout(() => {
       if (typeof window !== "undefined") {
         window.location.reload();
       }
-    }, 4000);
-  }, [buyCondition]);
+    }, 3000);
+  };
+  console.log(seats);
 
-  const onSubmitDeleteTicket = useCallback((id) => {
+  const sendEmail = async (emailPayloadObj) => {
+    setTakeAction(true);
+    setOpenPaymentMethod(true);
+    try {
+      const response = await fetch("http://158.220.115.182:3500/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(emailPayloadObj),
+      });
+
+      if (response.ok) {
+        const jsonResponse = await response.json();
+        console.log("Email sent successfully:", jsonResponse);
+        setEmailIsSend(true);
+        timeToReload();
+      } else {
+        setTakeAction(false);
+        console.error("Failed to send email.");
+        timeToReload();
+      }
+    } catch (error) {
+      setTakeAction(false);
+      console.error("Error sending email:", error);
+      timeToReload();
+    }
+  };
+
+  console.log(
+    "We hope that you find good reason to undo your admission. \nyou can try another plan any time!",
+  );
+
+  const onSubmitBuyTicket = useCallback(
+    (name) => {
+      let updateBuyTicket = [
+        ...alreadyBuy,
+        {
+          id: props.generateId(),
+          params: params,
+          date: selectedDateValue,
+          admission: seats?.length,
+          seats: seats,
+          email: email,
+        },
+      ];
+      setAlreadyBuy(updateBuyTicket);
+      sendEmail({
+        to: email,
+        subject: name,
+        text: `Thank you..\ndate: ${selectedDateValue}\nadmission: ${
+          seats?.length
+        }\nseats: [${seats.flatMap((item) => item.identifier)}]`,
+      });
+    },
+    [buyCondition],
+  );
+
+  const onSubmitDeleteTicket = useCallback((id, name, email) => {
     let updateDeleteTicket = alreadBuyWithParams.filter((m) => m.id !== id);
     setAlreadyBuy(updateDeleteTicket);
-    if (typeof window !== "undefined") {
-      window.location.reload();
-    }
+    sendEmail({
+      to: email,
+      subject: name,
+      text: "We hope that you find good reason to undo your admission.\n you can try another plan any time!",
+    });
   }, []);
 
   const calculateSum = (array) => {
@@ -130,7 +182,11 @@ function LocalMovie({ Error, setFavourite, favourite }) {
                     </div>
                     <div
                       onClick={() => {
-                        onSubmitDeleteTicket(item.id);
+                        onSubmitDeleteTicket(
+                          item.id,
+                          selectedMovie.name,
+                          item.email,
+                        );
                       }}
                       className="transitionTouch cursor-pointer rounded-full bg-white p-0.5 lg:hover:bg-grayA10"
                     >
@@ -298,29 +354,28 @@ function LocalMovie({ Error, setFavourite, favourite }) {
                   </div>
                 </div>
               </div>
-              <DialogRadix
-                trigger={
-                  <button
-                    onClick={() => {
-                      onSubmitBuyTicket();
-                    }}
-                    disabled={!buyCondition}
-                    className={`transitionTouch mt-4 w-full rounded-md border
+
+              <button
+                onClick={() => {
+                  onSubmitBuyTicket(selectedMovie.name);
+                }}
+                disabled={!buyCondition}
+                className={`transitionTouch mt-4 w-full rounded-md border
                  border-gray2 bg-amberA10 px-4 py-2 text-center
                   font-bold text-black ${
                     !buyCondition
                       ? "cursor-not-allowed border-none bg-amberA10/50"
                       : "lg:hover:bg-grayA4 lg:hover:text-white"
                   }`}
-                  >
-                    Buy
-                  </button>
-                }
-                content={
-                  <div className="flex h-full w-full items-center justify-center">
+              >
+                Buy
+              </button>
+              {takeAction && (
+                <div className="fixed top-0 z-[1000] flex h-full w-full items-center justify-center bg-black/90">
+                  {emailIsSend ? (
                     <div className="flex h-full w-full flex-col items-center justify-center gap-2">
-                      <h1 className="text-4xl font-bold text-grayA11">
-                        Thank you for submitting..{" "}
+                      <h1 className="text-4xl font-bold text-white">
+                        Thank you, you can check your email now!
                       </h1>
                       <lottie-player
                         autoplay
@@ -333,12 +388,28 @@ function LocalMovie({ Error, setFavourite, favourite }) {
                         }}
                       ></lottie-player>
                     </div>
-                  </div>
-                }
-                styleContent={
-                  "w-full max-w-full h-full max-h-full border-none rounded-none bg-black"
-                }
-              />
+                  ) : (
+                    <div role="status">
+                      <svg
+                        aria-hidden="true"
+                        className="h-10 w-10 animate-spin fill-amber10 text-gray-200 dark:text-gray-600"
+                        viewBox="0 0 100 101"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                          fill="currentFill"
+                        />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           )}
         </div>
