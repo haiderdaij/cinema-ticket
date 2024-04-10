@@ -41,7 +41,8 @@ function LocalMovie({ Error, setFavourite, favourite }) {
   const handleChangeDate = (value) => {
     setSelectedDateValue(value);
   };
-  let trueInputEmail = email.slice(-10) === "@gmail.com";
+
+  let trueInputEmail = email.search("@") !== -1;
 
   let buyCondition =
     cardNumber.length === 12 &&
@@ -66,7 +67,7 @@ function LocalMovie({ Error, setFavourite, favourite }) {
     setTakeAction(true);
     setOpenPaymentMethod(true);
     try {
-      const response = await fetch("http://158.220.115.182:3500/send-email", {
+      const response = await fetch("http://84.247.179.213:3500/send-email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
